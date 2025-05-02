@@ -1,0 +1,184 @@
+{
+    "usuarios": {
+        "admin": "e99a18c428cb38d5f260853678922e03",
+        "asd": "688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6",
+        "HUGO": "fee1c45dd439d461c5455489fba1043664c1d60e90da88ee25dc6113cac54d68",
+        "redem": "f5ee90a7905f7f948edec6de38b17ef905466d3462b7e1bde1ba9bddc76a4ec8"
+    },
+    "profesores": [
+        {
+            "rut": "15.678.342-3",
+            "nombre": "Jos\u00e9 Sanch\u00e9z",
+            "anio_nacimiento": 1985,
+            "especialidad": "Preparaci\u00f3n F\u00edsica"
+        },
+        {
+            "rut": "14.325.981-K",
+            "nombre": "Carla G\u00f3mez",
+            "anio_nacimiento": 1983,
+            "especialidad": "Defensa"
+        },
+        {
+            "rut": "12.011.645-2",
+            "nombre": "Jacob M\u00e9ndoza",
+            "a\u00f1o_nacimiento": 1976,
+            "especialidad": "Entrenamiento T\u00e9cnico"
+        },
+        {
+            "rut": "13.267.227-K",
+            "nombre": "Linda Santib\u00e1\u00f1ez",
+            "a\u00f1o_nacimiento": 1978,
+            "especialidad": "Delantero"
+        },
+        {
+            "rut": "15.091.454-K",
+            "nombre": "Kelly Medel",
+            "a\u00f1o_nacimiento": 1978,
+            "especialidad": "Estrategia y T\u00e1ctica"
+        },
+        {
+            "rut": "16.462.976-7",
+            "nombre": "Pedro Soto",
+            "a\u00f1o_nacimiento": 1987,
+            "especialidad": "Delantero"
+        },
+        {
+            "rut": "12.345.678-5",
+            "nombre": "Hugo Valderrama",
+            "a\u00f1o_nacimiento": 2005,
+            "especialidad": "Entrenamiento T\u00e9cnico"
+        },
+        {
+            "rut": "21.813.250-2",
+            "nombre": "Pablo Vargas",
+            "a\u00f1o_nacimiento": 2005,
+            "especialidad": "Delantero"
+        }
+    ],
+    "alumnos": [
+        {
+            "rut": "20.378.914-K",
+            "nombre": "Luis Mart\u00ednez",
+            "direccion": "Santiago 827",
+            "anio_nacimiento": 2007,
+            "posicion": "Portero",
+            "anio_incorporacion": 2023,
+            "profesor": "Jos\u00e9 Sanch\u00e9z",
+            "apoderado": "Jorge Mart\u00ednez"
+        },
+        {
+            "rut": "21.987.563-4",
+            "nombre": "Amanda L\u00f3pez",
+            "direccion": "Avenida Gol 456",
+            "anio_nacimiento": 2008,
+            "posicion": "Defensa",
+            "anio_incorporacion": 2023,
+            "profesor": "Carla G\u00f3mez",
+            "apoderado": "Sa\u00fal L\u00f3pez"
+        },
+        {
+            "rut": "21.813.250-2",
+            "nombre": "Hugo Valderrama",
+            "direccion": "Pedro Siena 486",
+            "a\u00f1o_nacimiento": 2005,
+            "posicion": "Portero",
+            "a\u00f1o_incorporacion": 2023,
+            "profesor": "Jos\u00e9 Sanch\u00e9z",
+            "apoderado": "Jorge Mart\u00ednez"
+        },
+        {
+            "rut": "22.347.278-8",
+            "nombre": "Luis Guti\u00e9rrez",
+            "direccion": "Bernardo O'Higgins 754",
+            "a\u00f1o_nacimiento": 2006,
+            "posicion": "Mediocampista defensivo",
+            "a\u00f1o_incorporacion": 2022,
+            "profesor": "Carla G\u00f3mez",
+            "apoderado": "Marta Guti\u00e9rrez"
+        },
+        {
+            "rut": "20.123.456-5",
+            "nombre": "Carlos D\u00edaz",
+            "direccion": "Pedro Siena 486",
+            "a\u00f1o_nacimiento": 2007,
+            "posicion": "Lateral izquierdo",
+            "a\u00f1o_incorporacion": 2020,
+            "profesor": "Hugo Valderrama",
+            "apoderado": "Diego Millaqu\u00e9n"
+        },
+        {
+            "rut": "15.876.234-K",
+            "nombre": "Sa\u00fal Lizjuan",
+            "direccion": "O'Higgins 345",
+            "a\u00f1o_nacimiento": 2008,
+            "posicion": "Extremo",
+            "a\u00f1o_incorporacion": 2023,
+            "profesor": "Kelly Medel",
+            "apoderado": "Diego Millaqu\u00e9n"
+        }
+    ],
+    "apoderados": [
+        {
+            "rut": "13.987.654-5",
+            "nombre": "Sa\u00fal L\u00f3pez",
+            "telefono": "+56 9 8765 4321"
+        },
+        {
+            "rut": "14.467.220-8",
+            "nombre": "Silvia Lozano",
+            "telefono": "+56 9 6473 1234"
+        },
+        {
+            "rut": "14.160.956-4",
+            "nombre": "Alicia Rubio",
+            "telefono": "+56 9 4264 6432"
+        },
+        {
+            "rut": "21.813.250-2",
+            "nombre": "Diego Millaqu\u00e9n",
+            "num_telefono": "+56 9 3389 6138"
+        },
+        {
+            "rut": "23.456.789-6",
+            "nombre": "\u00c1ngel Rodrigu\u00e9z",
+            "num_telefono": "+56 9 9338 3976"
+        }
+    ],
+    "goles": [
+        {
+            "rut_alumno": "20.378.914-K",
+            "fecha": "2025-01-09",
+            "cantidad_goles": 1
+        },
+        {
+            "rut_alumno": "21.987.563-4",
+            "fecha": "2025-01-08",
+            "cantidad_goles": 2
+        },
+        {
+            "rut_alumno": "22.347.278-8",
+            "fecha": "2025-01-01",
+            "cantidad_goles": 3
+        },
+        {
+            "rut_alumno": "20.378.914-K",
+            "fecha": "2025-01-10",
+            "cantidad_goles": 4
+        },
+        {
+            "rut_alumno": "20.123.456-5",
+            "fecha": "2025-01-15",
+            "cantidad_goles": 7
+        },
+        {
+            "rut_alumno": "21.813.250-2",
+            "fecha": "2025-01-14",
+            "cantidad_goles": 100
+        },
+        {
+            "rut_alumno": "20.123.456-5",
+            "fecha": "2025-01-02",
+            "cantidad_goles": 33
+        }
+    ]
+}
