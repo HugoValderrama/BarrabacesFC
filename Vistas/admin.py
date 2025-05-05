@@ -1,4 +1,5 @@
 import json
+import re
 import hashlib
 
 JSON = "Vistas/data.json"
@@ -10,13 +11,26 @@ def obtener_usuarios():
     datos = cargar()
     return datos.get("usuarios", {})
 
+def contrasena_segura(contrasena):
+    if len(contrasena) < 8:
+        return False, "La contraseña debe tener al menos 8 caracteres"
+    if not re.search(r"[A-Z]", contrasena):
+        return False, "Debe contener al menos una letra mayúscula"
+    if not re.search(r"[a-z]", contrasena):
+        return False, "Debe contener al menos una letra minúscula"
+    if not re.search(r"\d", contrasena):
+        return False, "Debe contener al menos un número"
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", contrasena):
+        return False, "Debe contener al menos un símbolo"
+    return True, ""
+
 def registrar_usuario(usuario, contrasena):
     datos = cargar()
     if "usuarios" not in datos:
         datos["usuarios"] = {}
 
     if usuario in datos["usuarios"]:
-        return False  # Ya existe
+        return False
 
     datos["usuarios"][usuario] = hash_contrasena(contrasena)
     guardar(datos)
@@ -41,9 +55,9 @@ def guardar(datos):
 
 # Funciones - Profesor
 
-def agregar_profesor(rut, nombre, año_nacimiento, especialidad):
+def agregar_profesor(rut, nombre, anio_nacimiento, especialidad):
     datos = cargar()
-    nuevo_profesor = {"rut": rut, "nombre": nombre, "año_nacimiento": año_nacimiento, "especialidad": especialidad}
+    nuevo_profesor = {"rut": rut, "nombre": nombre, "anio_nacimiento": anio_nacimiento, "especialidad": especialidad}
     datos["profesores"].append(nuevo_profesor)  # Añadir al listado de profesores
     guardar(datos)
 
@@ -62,9 +76,9 @@ def eliminar_profesor(rut):
 
 # Funciones - Apoderado
 
-def agregar_apoderado(rut, nombre, num_telefono):
+def agregar_apoderado(rut, nombre, telefono):
     datos = cargar()
-    nuevo_apoderado = {"rut": rut, "nombre": nombre, "num_telefono": num_telefono}
+    nuevo_apoderado = {"rut": rut, "nombre": nombre, "telefono": telefono}
     datos["apoderados"].append(nuevo_apoderado)  # Añadir al listado de apoderados
     guardar(datos)
 
@@ -83,11 +97,11 @@ def eliminar_apoderado(rut):
 
 # Funciones - Alumno
 
-def agregar_alumno(rut, nombre, direccion, año_nacimiento, posicion, año_incorporacion, profesor, apoderado):
+def agregar_alumno(rut, nombre, direccion, anio_nacimiento, posicion, año_incorporacion, profesor, apoderado):
     datos = cargar()
     nuevo_alumno = {
         "rut": rut, "nombre": nombre, "direccion": direccion,
-        "año_nacimiento": año_nacimiento, "posicion": posicion,
+        "anio_nacimiento": anio_nacimiento, "posicion": posicion,
         "año_incorporacion": año_incorporacion, "profesor": profesor, "apoderado": apoderado
     }
     datos["alumnos"].append(nuevo_alumno)  # Añadir al listado de alumnos

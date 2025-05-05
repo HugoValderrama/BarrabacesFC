@@ -65,7 +65,7 @@ combobox.grid(row=0, column=1, padx=10, pady=10)  # Posiciona el Combobox.
 combobox.set("Seleccione un profesor")  # Establece el texto inicial del Combobox.
 
 # Botón para mostrar alumnos
-boton = ttk.Button(main_frame, text="Mostrar Alumnos", command=mostrar_alumnos)
+boton = ttk.Button(main_frame, text="Mostrar alumnos", command=mostrar_alumnos)
 boton.grid(row=0, column=2, padx=10, pady=10)
 
 columnas = ("Rut", "Nombre", "Apoderado", "Dirección")  # Define las columnas de la tabla.

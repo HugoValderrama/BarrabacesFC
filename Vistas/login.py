@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import os
-from admin import autenticar_usuario, registrar_usuario  # Importa funciones desde admin.py
+from admin import autenticar_usuario, registrar_usuario, contrasena_segura  
 
 # Función de autenticación
 def iniciar_sesion():
@@ -14,12 +14,12 @@ def iniciar_sesion():
         ventana.destroy()
         os.system("python Vistas/principal.py")
     else:
-        messagebox.showerror("Error", "Usuario o contraseña incorrectos")
+        messagebox.showerror("Error", "Usuario o Contraseña incorrectos")
 
 # Abrir ventana de registro
 def abrir_registro():
     registro = tk.Toplevel(ventana)
-    registro.title("Registro de Usuario")
+    registro.title("Registro de Usuario - Barrabases FC")
     registro.geometry("400x300")
     registro.config(bg="#1c1f33")
 
@@ -35,11 +35,21 @@ def abrir_registro():
         usuario = entry_nuevo_usuario.get()
         contrasena = entry_nueva_contrasena.get()
 
+    # Validar Contraseña segura
+        es_segura, mensaje = contrasena_segura(contrasena)
+        if not es_segura:
+            messagebox.showerror("Contraseña no válida", mensaje)
+            return  # Este return debe estar dentro del if
+
+    # Intentar registrar el usuario
         if registrar_usuario(usuario, contrasena):
             messagebox.showinfo("Registro", "Usuario registrado exitosamente")
             registro.destroy()
         else:
             messagebox.showerror("Error", "El usuario ya existe")
+
+
+             
 
     tk.Button(registro, text="Registrar", command=registrar, font=("Arial", 12), bg="white", fg="#1c1f33").pack(pady=20)
 
@@ -66,33 +76,33 @@ titulo.pack(pady=30)
 
 # Campo usuario
 entry_usuario = tk.Entry(ventana, font=("Arial", 14), width=25, justify="center")
-entry_usuario.insert(0, "NOMBRE DE USUARIO")
+entry_usuario.insert(0, "Nombre de usuario")
 entry_usuario.config(fg="grey", bg="#3b4fe4", relief="flat")
-entry_usuario.bind("<FocusIn>", lambda event: on_entry_click(entry_usuario, "NOMBRE DE USUARIO"))
-entry_usuario.bind("<FocusOut>", lambda event: on_focusout(entry_usuario, "NOMBRE DE USUARIO"))
+entry_usuario.bind("<FocusIn>", lambda event: on_entry_click(entry_usuario, "Nombre de usuario"))
+entry_usuario.bind("<FocusOut>", lambda event: on_focusout(entry_usuario, "Nombre de usuario"))
 entry_usuario.pack(pady=15)
 
 # Campo contraseña
 entry_contrasena = tk.Entry(ventana, font=("Arial", 14), width=25, justify="center")
-entry_contrasena.insert(0, "CONTRASEÑA")
+entry_contrasena.insert(0, "Contraseña")
 entry_contrasena.config(fg="grey", bg="#324f6b", relief="flat")
-entry_contrasena.bind("<FocusIn>", lambda event: on_entry_click(entry_contrasena, "CONTRASEÑA"))
-entry_contrasena.bind("<FocusOut>", lambda event: on_focusout(entry_contrasena, "CONTRASEÑA"))
+entry_contrasena.bind("<FocusIn>", lambda event: on_entry_click(entry_contrasena, "Contraseña"))
+entry_contrasena.bind("<FocusOut>", lambda event: on_focusout(entry_contrasena, "Contraseña"))
 entry_contrasena.pack(pady=15)
 
 # Botón ingresar
 boton_ingresar = tk.Button(
-    ventana, text="INGRESAR", font=("Arial", 14, "bold"), command=iniciar_sesion,
+    ventana, text="Ingresar", font=("Arial", 14, "bold"), command=iniciar_sesion,
     width=15, bg="white", fg="#1c1f33"
 )
 boton_ingresar.pack(pady=30)
 
 # Botón registrarse
 boton_registrar = tk.Button(
-    ventana, text="REGISTRARSE", font=("Arial", 12), command=abrir_registro,
+    ventana, text="Registrarse", font=("Arial", 14, "bold"), command=abrir_registro,
     width=15, bg="#3b4fe4", fg="white"
 )
-boton_registrar.pack()
+boton_registrar.pack(pady=30)
 
 # Ejecutar ventana
 ventana.mainloop()

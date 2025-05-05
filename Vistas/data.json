@@ -3,7 +3,8 @@
         "admin": "e99a18c428cb38d5f260853678922e03",
         "asd": "688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6",
         "HUGO": "fee1c45dd439d461c5455489fba1043664c1d60e90da88ee25dc6113cac54d68",
-        "redem": "f5ee90a7905f7f948edec6de38b17ef905466d3462b7e1bde1ba9bddc76a4ec8"
+        "redem": "f5ee90a7905f7f948edec6de38b17ef905466d3462b7e1bde1ba9bddc76a4ec8",
+        "hugo2": "a7af07e431da00a89d4b668abd5f9571c66f7f415268f2d60c00f53766176712"
     },
     "profesores": [
         {
@@ -136,12 +137,12 @@
         {
             "rut": "21.813.250-2",
             "nombre": "Diego Millaqu\u00e9n",
-            "num_telefono": "+56 9 3389 6138"
+            "telefono": "+56 9 3389 6138"
         },
         {
             "rut": "23.456.789-6",
             "nombre": "\u00c1ngel Rodrigu\u00e9z",
-            "num_telefono": "+56 9 9338 3976"
+            "telefono": "+56 9 9338 3976"
         }
     ],
     "goles": [

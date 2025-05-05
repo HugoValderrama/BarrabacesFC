@@ -78,7 +78,7 @@ frame_central.grid(row=1, column=0, columnspan=3, padx=20, pady=20, sticky="nsew
 
 # Combobox para seleccionar el RUT
 lbl_rut = tk.Label(
-    frame_central, text="Seleccione Rut del Alumno:",  # Etiqueta de ayuda.
+    frame_central, text="Seleccione RUT del alumno:",  # Etiqueta de ayuda.
     font=("Arial", 12, "bold"), bg="white"
 )
 lbl_rut.grid(row=0, column=0, padx=10, pady=10, sticky="w")  # Posiciona la etiqueta.
@@ -100,7 +100,7 @@ btn_confirmar_rut.grid(row=0, column=2, padx=10, pady=10, sticky="w")  # Posicio
 
 # Entrada para mostrar el nombre del alumno
 lbl_nombre_alumno = tk.Label(
-    frame_central, text="Nombre del Alumno:", 
+    frame_central, text="Nombre del alumno:", 
     font=("Arial", 12, "bold"), bg="white"
 )
 lbl_nombre_alumno.grid(row=1, column=0, padx=10, pady=10, sticky="w")
