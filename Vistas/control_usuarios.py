@@ -36,15 +36,15 @@ def validar_rut(rut):
     try:
         # Limpiar el RUT
         rut = rut.replace(".", "").replace("-", "").strip().upper()
-        print(f"RUT para validar: '{rut}'")  # Debugging
+        print(f"RUT para validar: '{rut}'")
 
         # Separar el cuerpo y el dígito verificador
         cuerpo, dv = rut[:-1], rut[-1]
-        print(f"Cuerpo: '{cuerpo}', Dígito Verificador ingresado: '{dv}'")  # Debugging
+        print(f"Cuerpo: '{cuerpo}', Dígito Verificador ingresado: '{dv}'")  
 
         # Validar que el cuerpo sea numérico
         if not cuerpo.isdigit():
-            print("El cuerpo del RUT no es numérico.")  # Debugging
+            print("El cuerpo del RUT no es numérico.") 
             return False
 
         # Calcular el dígito verificador esperado
@@ -92,15 +92,6 @@ def actualizar_nombre_por_rut(event):
                 break
 
     # Actualiza el campo de nombre asociado al Combobox seleccionado.
-    for sibling in combobox.master.winfo_children():  # Recorre todos los widgets en el contenedor del Combobox.
-        if (  # Si el widget es un Entry (campo de texto) y está en la fila siguiente al Combobox:
-            isinstance(sibling, tk.Entry) and 
-            sibling.grid_info()["row"] == combobox.grid_info()["row"] + 1
-        ):
-            sibling.delete(0, tk.END)  # Limpia el contenido del campo de texto.
-            sibling.insert(0, nombre)  # Inserta el nombre correspondiente.
-            sibling.config(state="readonly")  # Configura el campo como de solo lectura.
-
     # Encontrar el campo de nombre asociado al Combobox y actualizarlo
     for sibling in combobox.master.winfo_children():
         if isinstance(sibling, tk.Entry) and sibling.grid_info()["row"] == combobox.grid_info()["row"] + 1:
@@ -166,12 +157,16 @@ def ejecutar_operacion():
             if not all([nombre, anio_nacimiento, especialidad]):
                 messagebox.showerror("Error", "Todos los campos son obligatorios.")
                 return
+            if rut_duplicado(rut):
+                messagebox.showerror("Error", "Este RUT ya está registrado.")
+                return
+
             agregar_profesor(rut, nombre, int(anio_nacimiento), especialidad)
         elif oper == "Modificar":
             nuevos_datos = {
-                "nombre": frame.winfo_children()[3].get().strip(),
-                "anio_nacimiento": frame.winfo_children()[5].get().strip(),
-                "especialidad": frame.winfo_children()[7].get().strip(),
+                "nombre": frame.winfo_children()[4].get().strip(),
+                "anio_nacimiento": frame.winfo_children()[6].get().strip(),
+                "especialidad": frame.winfo_children()[8].get().strip(),
             }
             modificar_profesor(rut, nuevos_datos)
         elif oper == "Eliminar":
@@ -186,19 +181,26 @@ def ejecutar_operacion():
             anio_incorporacion = frame.winfo_children()[11].get().strip()
             apoderado = frame.winfo_children()[13].get().strip()
             profesor = frame.winfo_children()[15].get().strip()
-            if not all([nombre, direccion, anio_nacimiento, posicion, anio_incorporacion, apoderado, profesor]):
+            if not all([nombre, direccion, anio_nacimiento, posicion, anio_incorporacion, profesor, apoderado]):
                 messagebox.showerror("Error", "Todos los campos son obligatorios.")
+                return
+            if rut_duplicado(rut):
+                messagebox.showerror("Error", "Este RUT ya está registrado.")
                 return
             agregar_alumno(rut, nombre, direccion, int(anio_nacimiento), posicion, int(anio_incorporacion), profesor, apoderado)
         elif oper == "Modificar":
+
+            print("Total widgets:", len(frame.winfo_children()))
+            for i, widget in enumerate(frame.winfo_children()):
+                print(f"{i}: {type(widget)} - {str(widget)}")
             nuevos_datos = {
-                "nombre": frame.winfo_children()[3].get().strip(),
-                "direccion": frame.winfo_children()[5].get().strip(),
-                "anio_nacimiento": frame.winfo_children()[7].get().strip(),
-                "posicion": frame.winfo_children()[9].get().strip(),
-                "anio_incorporacion": frame.winfo_children()[11].get().strip(),
-                "profesor": frame.winfo_children()[13].get().strip(),
-                "apoderado": frame.winfo_children()[15].get().strip(),
+                "nombre": frame.winfo_children()[4].get().strip(),
+                "direccion": frame.winfo_children()[6].get().strip(),
+                "anio_nacimiento": frame.winfo_children()[8].get().strip(),
+                "posicion": frame.winfo_children()[12].get().strip(),
+                "anio_incorporacion": frame.winfo_children()[14].get().strip(),
+                "profesor": frame.winfo_children()[16].get().strip(),
+                "apoderado": frame.winfo_children()[17].get().strip(),
             }
             modificar_alumno(rut, nuevos_datos)
         elif oper == "Eliminar":
@@ -211,11 +213,14 @@ def ejecutar_operacion():
             if not all([nombre, telefono]):
                 messagebox.showerror("Error", "Todos los campos son obligatorios.")
                 return
+            if rut_duplicado(rut):
+                messagebox.showerror("Error", "Este RUT ya está registrado.")
+                return
             agregar_apoderado(rut, nombre, telefono)
         elif oper == "Modificar":
             nuevos_datos = {
-                "nombre": frame.winfo_children()[3].get().strip(),
-                "telefono": frame.winfo_children()[5].get().strip(),
+                "nombre": frame.winfo_children()[4].get().strip(),
+                "telefono": frame.winfo_children()[6].get().strip(),
             }
             modificar_apoderado(rut, nuevos_datos)
         elif oper == "Eliminar":
@@ -380,7 +385,7 @@ tk.Entry(frame_alumno_ingresar, width=25).grid(row=1, column=1, pady=5)
 tk.Label(frame_alumno_ingresar, text="Dirección:", bg="white").grid(row=2, column=0, pady=5)
 tk.Entry(frame_alumno_ingresar, width=25).grid(row=2, column=1, pady=5)
 
-tk.Label(frame_alumno_ingresar, text="Año de Nacimiento:", bg="white").grid(row=3, column=0, pady=5)
+tk.Label(frame_alumno_ingresar, text="Año de nacimiento:", bg="white").grid(row=3, column=0, pady=5)
 tk.Entry(frame_alumno_ingresar, width=25).grid(row=3, column=1, pady=5)
 
 tk.Label(frame_alumno_ingresar, text="Posición:", bg="white").grid(row=4, column=0, pady=5)
@@ -388,7 +393,7 @@ ttk.Combobox(frame_alumno_ingresar, width=25, values=["Portero", "Defensa centra
 "Carrilero", "Mediocampista defensivo", "Mediocampista central", "Mediocampista ofensivo", "Mediocampista lateral", "Extremo",
 "Delantero centro", "Delantero central", "Extremo lateral", "Segundo delantero", "Polivalente"]).grid(row=4, column=1, pady=5)
 
-tk.Label(frame_alumno_ingresar, text="Año de Incorporación:", bg="white").grid(row=5, column=0, pady=5)
+tk.Label(frame_alumno_ingresar, text="Año de incorporación:", bg="white").grid(row=5, column=0, pady=5)
 tk.Entry(frame_alumno_ingresar, width=25).grid(row=5, column=1, pady=5)
 
 tk.Label(frame_alumno_ingresar, text="Apoderado:", bg="white").grid(row=6, column=0, pady=5)
@@ -401,7 +406,7 @@ ttk.Combobox(frame_alumno_ingresar, width=25).grid(row=7, column=1, pady=5)
 
 frame_alumno_modificar = tk.Frame(frame_formulario, bg="white")
 
-tk.Label(frame_alumno_modificar, text="RUT del Alumno a Modificar:", bg="white").grid(row=0, column=0, pady=5)
+tk.Label(frame_alumno_modificar, text="RUT del alumno a modificar:", bg="white").grid(row=0, column=0, pady=5)
 combo_rut_alumno_modificar = ttk.Combobox(frame_alumno_modificar, width=25)
 combo_rut_alumno_modificar.grid(row=0, column=1, pady=5)
 
@@ -413,7 +418,7 @@ tk.Entry(frame_alumno_modificar, width=25).grid(row=2, column=1, pady=5)
 tk.Label(frame_alumno_modificar, text="Dirección:", bg="white").grid(row=3, column=0, pady=5)
 tk.Entry(frame_alumno_modificar, width=25).grid(row=3, column=1, pady=5)
 
-tk.Label(frame_alumno_modificar, text="Año de Nacimiento:", bg="white").grid(row=4, column=0, pady=5)
+tk.Label(frame_alumno_modificar, text="Año de nacimiento:", bg="white").grid(row=4, column=0, pady=5)
 tk.Entry(frame_alumno_modificar, width=25).grid(row=4, column=1, pady=5)
 
 tk.Label(frame_alumno_modificar, text="Posición:", bg="white").grid(row=5, column=0, pady=5)
@@ -421,20 +426,17 @@ ttk.Combobox(frame_alumno_modificar, width=25, values=["Portero", "Defensa centr
 "Carrilero", "Mediocampista defensivo", "Mediocampista central", "Mediocampista ofensivo", "Mediocampista lateral", "Extremo",
 "Delantero centro", "Delantero central", "Extremo lateral", "Segundo delantero", "Polivalente"]).grid(row=5, column=1, pady=5)
 
-tk.Label(frame_alumno_modificar, text="Año de Incorporación:", bg="white").grid(row=6, column=0, pady=5)
+tk.Label(frame_alumno_modificar, text="Año de incorporación:", bg="white").grid(row=6, column=0, pady=5)
 tk.Entry(frame_alumno_modificar, width=25).grid(row=6, column=1, pady=5)
 
 tk.Label(frame_alumno_modificar, text="Profesor:", bg="white").grid(row=7, column=0, pady=5)
 ttk.Combobox(frame_alumno_modificar, width=25).grid(row=7, column=1, pady=5)
 
-tk.Label(frame_alumno_modificar, text="Apoderado:", bg="white").grid(row=8, column=0, pady=5)
-ttk.Combobox(frame_alumno_modificar, width=25).grid(row=8, column=1, pady=5)
-
 # Eliminar Alumno
 
 frame_alumno_eliminar = tk.Frame(frame_formulario, bg="white")
 
-tk.Label(frame_alumno_eliminar, text="RUT del Alumno a Eliminar:", bg="white").grid(row=0, column=0, pady=5)
+tk.Label(frame_alumno_eliminar, text="RUT del alumno a eliminar:", bg="white").grid(row=0, column=0, pady=5)
 
 combo_rut_alumno_eliminar = ttk.Combobox(frame_alumno_eliminar, width=25)
 combo_rut_alumno_eliminar.grid(row=0, column=1, pady=5)
@@ -453,7 +455,7 @@ tk.Entry(frame_profesor_ingresar, width=25).grid(row=0, column=1, pady=5)
 tk.Label(frame_profesor_ingresar, text="Nombre:", bg="white").grid(row=1, column=0, pady=5)
 tk.Entry(frame_profesor_ingresar, width=25).grid(row=1, column=1, pady=5)
 
-tk.Label(frame_profesor_ingresar, text="Año de Nacimiento:", bg="white").grid(row=2, column=0, pady=5)
+tk.Label(frame_profesor_ingresar, text="Año de nacimiento:", bg="white").grid(row=2, column=0, pady=5)
 tk.Entry(frame_profesor_ingresar, width=25).grid(row=2, column=1, pady=5)
 
 tk.Label(frame_profesor_ingresar, text="Especialidad:", bg="white").grid(row=3, column=0, pady=5)
@@ -464,7 +466,7 @@ ttk.Combobox(frame_profesor_ingresar, width=25, values=["Portero", "Defensa", "M
 
 frame_profesor_modificar = tk.Frame(frame_formulario, bg="white")
 
-tk.Label(frame_profesor_modificar, text="RUT del Profesor a Modificar:", bg="white").grid(row=0, column=0, pady=5)
+tk.Label(frame_profesor_modificar, text="RUT del profesor a modificar:", bg="white").grid(row=0, column=0, pady=5)
 combo_rut_profesor_modificar = ttk.Combobox(frame_profesor_modificar, width=25)
 combo_rut_profesor_modificar.grid(row=0, column=1, pady=5)
 
@@ -473,7 +475,7 @@ tk.Label(frame_profesor_modificar, text="Nuevos datos", bg="white").grid(row=1, 
 tk.Label(frame_profesor_modificar, text="Nombre:", bg="white").grid(row=2, column=0, pady=5)
 tk.Entry(frame_profesor_modificar, width=25).grid(row=2, column=1, pady=5)
 
-tk.Label(frame_profesor_modificar, text="Año de Nacimiento:", bg="white").grid(row=3, column=0, pady=5)
+tk.Label(frame_profesor_modificar, text="Año de nacimiento:", bg="white").grid(row=3, column=0, pady=5)
 tk.Entry(frame_profesor_modificar, width=25).grid(row=3, column=1, pady=5)
 
 tk.Label(frame_profesor_modificar, text="Especialidad:", bg="white").grid(row=4, column=0, pady=5)
@@ -484,7 +486,7 @@ ttk.Combobox(frame_profesor_modificar, width=25, values=["Portero", "Defensa", "
 
 frame_profesor_eliminar = tk.Frame(frame_formulario, bg="white")
 
-tk.Label(frame_profesor_eliminar, text="RUT del Profesor a Eliminar:", bg="white").grid(row=0, column=0, pady=5)
+tk.Label(frame_profesor_eliminar, text="RUT del profesor a eliminar:", bg="white").grid(row=0, column=0, pady=5)
 combo_rut_profesor_eliminar = ttk.Combobox(frame_profesor_eliminar, width=25)
 combo_rut_profesor_eliminar.grid(row=0, column=1, pady=5)
 combo_rut_profesor_eliminar.bind("<<ComboboxSelected>>", actualizar_nombre_por_rut)
@@ -509,7 +511,7 @@ tk.Entry(frame_apoderado_ingresar, width=25).grid(row=2, column=1, pady=5)
 
 frame_apoderado_modificar = tk.Frame(frame_formulario, bg="white")
 
-tk.Label(frame_apoderado_modificar, text="RUT del Apoderado a Modificar:", bg="white").grid(row=0, column=0, pady=5)
+tk.Label(frame_apoderado_modificar, text="RUT del apoderado a modificar:", bg="white").grid(row=0, column=0, pady=5)
 combo_rut_apoderado_modificar = ttk.Combobox(frame_apoderado_modificar, width=25)
 combo_rut_apoderado_modificar.grid(row=0, column=1, pady=5)
 
@@ -525,7 +527,7 @@ tk.Entry(frame_apoderado_modificar, width=25).grid(row=3, column=1, pady=5)
 
 frame_apoderado_eliminar = tk.Frame(frame_formulario, bg="white")
 
-tk.Label(frame_apoderado_eliminar, text="RUT del Apoderado a Eliminar:", bg="white").grid(row=0, column=0, pady=5)
+tk.Label(frame_apoderado_eliminar, text="RUT del apoderado a eliminar:", bg="white").grid(row=0, column=0, pady=5)
 combo_rut_apoderado_eliminar = ttk.Combobox(frame_apoderado_eliminar, width=25)
 combo_rut_apoderado_eliminar.grid(row=0, column=1, pady=5)
 combo_rut_apoderado_eliminar.bind("<<ComboboxSelected>>", actualizar_nombre_por_rut)
